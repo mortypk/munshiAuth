@@ -1,5 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <!-- Style and Scripts -->
+    @vite( ['resources/css/app.css', 'resources/js/app.js'])
+
+<x-theme.nav.bar class="mb-1">
+    <x-theme.nav.logo>Munshi</x-theme.nav.logo>
+    <x-theme.nav.link>Home</x-theme.nav.link>
+    <x-theme.nav.link>About</x-theme.nav.link>
+    <x-theme.nav.link>Contact</x-theme.nav.link>
+    <x-theme.nav.dropdown copation="Product">
+        <x-theme.nav.dropdown.link>Dress</x-theme.nav.dropdown.link>
+        <x-theme.nav.dropdown.link>Food</x-theme.nav.dropdown.link>
+        <x-theme.nav.dropdown.link>Electronic</x-theme.nav.dropdown.link>
+    </x-theme.nav.dropdown>
+    <div class="flex-grow"></div>
+    @if (Route::has('login'))
+        @auth
+            <x-theme.nav.link href="{{ url('/dashboard') }}" >Dashboard</x-theme.nav.link>
+        @else
+            <x-theme.nav.link href="{{ route('login') }}" >Login</x-theme.nav.link>
+            
+            @if (Route::has('register'))
+            <x-theme.nav.link href="{{ route('register') }}">Register</x-theme.nav.link>
+            @endif
+        @endauth
+    @endif
+</x-theme.nav.bar>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,19 +48,7 @@
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+           
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
